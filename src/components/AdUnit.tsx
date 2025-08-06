@@ -9,11 +9,18 @@ interface AdUnitProps {
   style?: React.CSSProperties
 }
 
+declare global {
+  interface Window {
+    adsbygoogle: any[]
+  }
+}
+
 export default function AdUnit({ slot, format = 'auto', responsive = true, style }: AdUnitProps) {
   useEffect(() => {
     try {
-      // @ts-expect-error
-      (window.adsbygoogle = window.adsbygoogle || []).push({})
+      if (typeof window !== 'undefined') {
+        (window.adsbygoogle = window.adsbygoogle || []).push({})
+      }
     } catch (err) {
       console.error('AdSense error:', err)
     }
