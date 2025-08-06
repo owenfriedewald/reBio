@@ -9,21 +9,12 @@ interface AdUnitProps {
   style?: React.CSSProperties
 }
 
-interface AdsByGoogle {
-  push: (ad: Record<string, unknown>) => void
-}
-
-declare global {
-  interface Window {
-    adsbygoogle: AdsByGoogle[]
-  }
-}
-
 export default function AdUnit({ slot, format = 'auto', responsive = true, style }: AdUnitProps) {
   useEffect(() => {
     try {
       if (typeof window !== 'undefined') {
-        (window.adsbygoogle = window.adsbygoogle || []).push({})
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({})
       }
     } catch (err) {
       console.error('AdSense error:', err)
