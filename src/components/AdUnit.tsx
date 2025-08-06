@@ -9,9 +9,13 @@ interface AdUnitProps {
   style?: React.CSSProperties
 }
 
+interface AdsByGoogle {
+  push: (ad: Record<string, unknown>) => void
+}
+
 declare global {
   interface Window {
-    adsbygoogle: any[]
+    adsbygoogle: AdsByGoogle[]
   }
 }
 
