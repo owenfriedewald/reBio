@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'BioMorph - AI Bio Generator | SEO Optimized Bios for Every Platform',
+  title: 'reBio - AI Bio Generator | SEO Optimized Bios for Every Platform',
   description: 'Generate SEO-optimized bios for LinkedIn, Twitter, Instagram, YouTube & more with AI. Transform one bio into 8 platform-specific, search-optimized profiles instantly.',
   keywords: 'bio generator, AI bio writer, SEO optimized bio, LinkedIn bio, Twitter bio, Instagram bio, professional bio, social media bio generator',
 }
