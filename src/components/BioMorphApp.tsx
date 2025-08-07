@@ -79,7 +79,7 @@ export default function BioMorphApp() {
               Create <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent font-semibold">SEO-optimized bios</span> for maximum visibility
             </p>
             <p className="text-xl text-slate-400 font-light">
-              Generate search-optimized, platform-specific bios that get you discovered
+              Generate custom-tailored, platform-specific bios that get you discovered
             </p>
           </div>
 
