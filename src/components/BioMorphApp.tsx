@@ -69,7 +69,7 @@ export default function BioMorphApp() {
           </div>
           
           <h1 className="text-8xl md:text-9xl font-black mb-8 bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent leading-none tracking-tight">
-            BioMorph
+            reBio
           </h1>
           
           <div className="max-w-4xl mx-auto mb-12">
