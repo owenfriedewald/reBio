@@ -8,7 +8,7 @@ import AdUnit from './AdUnit'
 
 export default function BioMorphApp() {
   const [originalBio, setOriginalBio] = useState('')
-  const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>(['linkedin', 'twitter'])
+  const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>(['twitter', 'instagram'])
   const [generatedBios, setGeneratedBios] = useState<Record<string, string>>({})
   const [isLoading, setIsLoading] = useState(false)
   const [copiedPlatform, setCopiedPlatform] = useState<string | null>(null)
@@ -71,7 +71,7 @@ export default function BioMorphApp() {
           </div>
           
           <h1 className="text-8xl md:text-9xl font-black mb-8 bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent leading-none tracking-tight">
-            BioMorph
+            reBio
           </h1>
           
           <div className="max-w-4xl mx-auto mb-12">
