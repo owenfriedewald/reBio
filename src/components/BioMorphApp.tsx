@@ -12,6 +12,7 @@ export default function BioMorphApp() {
   const [generatedBios, setGeneratedBios] = useState<Record<string, string>>({})
   const [isLoading, setIsLoading] = useState(false)
   const [copiedPlatform, setCopiedPlatform] = useState<string | null>(null)
+  const [hasGenerated, setHasGenerated] = useState(false)
 
   const handlePlatformToggle = (platformId: string) => {
     setSelectedPlatforms(prev => 
@@ -22,12 +23,13 @@ export default function BioMorphApp() {
   }
 
   const handleGenerate = async () => {
-    if (!originalBio.trim() || selectedPlatforms.length === 0) return
+    if (!originalBio.trim() || selectedPlatforms.length === 0 || hasGenerated) return
     
     setIsLoading(true)
     try {
       const bios = await generateBios(originalBio, selectedPlatforms)
       setGeneratedBios(bios)
+      setHasGenerated(true)
     } catch (error) {
       console.error('Error generating bios:', error)
       alert('Failed to generate bios. Please try again.')
@@ -69,7 +71,7 @@ export default function BioMorphApp() {
           </div>
           
           <h1 className="text-8xl md:text-9xl font-black mb-8 bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent leading-none tracking-tight">
-            reBio
+            BioMorph
           </h1>
           
           <div className="max-w-4xl mx-auto mb-12">
@@ -77,7 +79,7 @@ export default function BioMorphApp() {
               Create <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent font-semibold">SEO-optimized bios</span> for maximum visibility
             </p>
             <p className="text-xl text-slate-400 font-light">
-              Generate custom-tailored, platform-specific bios that get you discovered
+              Generate search-optimized, platform-specific bios that get you discovered
             </p>
           </div>
 
@@ -109,12 +111,22 @@ export default function BioMorphApp() {
           <div className="relative">
             <textarea
               value={originalBio}
-              onChange={(e) => setOriginalBio(e.target.value)}
+              onChange={(e) => {
+                const value = e.target.value
+                if (value.length <= 1000) {
+                  setOriginalBio(value)
+                }
+              }}
               placeholder="Tell us about yourself... your achievements, passions, expertise, and what makes you unique. The more detail you provide, the better we can tailor your bio for each platform."
               className="w-full h-48 p-8 bg-black/30 border-2 border-white/10 rounded-2xl text-white placeholder-slate-400 resize-none focus:outline-none focus:border-purple-500/50 focus:bg-black/40 transition-all duration-300 text-lg leading-relaxed font-light"
             />
-            <div className="absolute bottom-6 right-6 px-4 py-2 bg-white/10 rounded-full text-sm text-slate-400 backdrop-blur-sm">
-              {originalBio.length} characters
+            <div className="absolute bottom-6 right-6 px-4 py-2 bg-white/10 rounded-full text-sm backdrop-blur-sm flex items-center gap-2">
+              <span className={originalBio.length >= 1000 ? 'text-red-400' : 'text-slate-400'}>
+                {originalBio.length}/1000
+              </span>
+              {originalBio.length >= 1000 && (
+                <span className="text-red-400 text-xs">Max reached</span>
+              )}
             </div>
           </div>
         </div>
@@ -175,31 +187,33 @@ export default function BioMorphApp() {
         <AdUnit slot="1234567890" />
 
         {/* Generate Button - Epic */}
-        <div className="text-center mb-16">
-          <button
-            onClick={handleGenerate}
-            disabled={!originalBio.trim() || selectedPlatforms.length === 0 || isLoading}
-            className="group relative px-16 py-6 bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 text-white font-bold text-2xl rounded-2xl transition-all duration-500 hover:scale-110 hover:shadow-2xl hover:shadow-purple-500/50 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 inline-flex items-center gap-4"
-          >
-            {/* Button glow effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity duration-500"></div>
-            
-            <div className="relative z-10 flex items-center gap-4">
-              {isLoading ? (
-                <>
-                  <Loader2 className="w-8 h-8 animate-spin" />
-                  Generating Magic...
-                </>
-              ) : (
-                <>
-                  <Wand2 className="w-8 h-8 group-hover:rotate-12 transition-transform duration-300" />
-                  Generate Bios
-                  <Sparkles className="w-6 h-6 group-hover:scale-125 transition-transform duration-300" />
-                </>
-              )}
-            </div>
-          </button>
-        </div>
+        {!hasGenerated && (
+          <div className="text-center mb-16">
+            <button
+              onClick={handleGenerate}
+              disabled={!originalBio.trim() || selectedPlatforms.length === 0 || isLoading}
+              className="group relative px-16 py-6 bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 text-white font-bold text-2xl rounded-2xl transition-all duration-500 hover:scale-110 hover:shadow-2xl hover:shadow-purple-500/50 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 inline-flex items-center gap-4"
+            >
+              {/* Button glow effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity duration-500"></div>
+              
+              <div className="relative z-10 flex items-center gap-4">
+                {isLoading ? (
+                  <>
+                    <Loader2 className="w-8 h-8 animate-spin" />
+                    Generating Magic...
+                  </>
+                ) : (
+                  <>
+                    <Wand2 className="w-8 h-8 group-hover:rotate-12 transition-transform duration-300" />
+                    Generate Bios
+                    <Sparkles className="w-6 h-6 group-hover:scale-125 transition-transform duration-300" />
+                  </>
+                )}
+              </div>
+            </button>
+          </div>
+        )}
 
         {/* Results - Premium Layout */}
         {Object.keys(generatedBios).length > 0 && (
