@@ -1,4 +1,4 @@
-# BioMorph  
+# reBio
 
 **AI-powered bio rewriter tool** built with **Next.js, Tailwind CSS, and the OpenAI API**.  
 The app generates **polished, context-specific social media bios** (LinkedIn, Twitter, Instagram, etc.) from a short user input.  
